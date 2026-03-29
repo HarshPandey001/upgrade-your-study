@@ -58,7 +58,7 @@
     window.UYS_BACKEND_URL = window.UYS_BACKEND_URL || localStorage.getItem("uys_backend_url") || (
       window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname)
         ? "http://localhost:5000"
-        : window.location.origin
+        : "https://upgrade-your-study-backend.onrender.com"
     );
   </script>
 
