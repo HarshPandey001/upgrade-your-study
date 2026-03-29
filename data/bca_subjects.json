@@ -1,0 +1,262 @@
+{
+  "1": {
+    "title": "1st Semester",
+    "totalMarks": 500,
+    "subjects": [
+      {
+        "code": "BCA 101",
+        "name": "IT Tools and Applications",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 102",
+        "name": "Principles of Mathematics",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 103",
+        "name": "Functional English",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 104",
+        "name": "Introduction to Computer Programming in C",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 105",
+        "name": "Practical 1",
+        "internal": 0,
+        "external": 100,
+        "total": 100,
+        "kind": "practical"
+      }
+    ]
+  },
+  "2": {
+    "title": "2nd Semester",
+    "totalMarks": 500,
+    "subjects": [
+      {
+        "code": "BCA 201",
+        "name": "Discrete Mathematics",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 202",
+        "name": "Accounting and Financial Management",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 203",
+        "name": "Digital Circuit and Logic Design",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 204",
+        "name": "Introductions to Object Oriented Programming and C++",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 205",
+        "name": "Practical 2",
+        "internal": 0,
+        "external": 100,
+        "total": 100,
+        "kind": "practical"
+      }
+    ]
+  },
+  "3": {
+    "title": "3rd Semester",
+    "totalMarks": 500,
+    "subjects": [
+      {
+        "code": "BCA 301",
+        "name": "Operating System",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 302",
+        "name": "Computer Oriented Mathematics",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 303",
+        "name": "Data Structure",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 304",
+        "name": "Computer Organization and Architecture",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 305",
+        "name": "Practical 3",
+        "internal": 0,
+        "external": 100,
+        "total": 100,
+        "kind": "practical"
+      }
+    ]
+  },
+  "4": {
+    "title": "4th Semester",
+    "totalMarks": 500,
+    "subjects": [
+      {
+        "code": "BCA 401",
+        "name": "Introduction to Database Management System",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 402",
+        "name": "Operation Research",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 403",
+        "name": "Computer Graphics",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 404",
+        "name": "Software Engineering",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 405",
+        "name": "Practical 4",
+        "internal": 0,
+        "external": 100,
+        "total": 100,
+        "kind": "practical"
+      }
+    ]
+  },
+  "5": {
+    "title": "5th Semester",
+    "totalMarks": 500,
+    "subjects": [
+      {
+        "code": "BCA 501",
+        "name": "Internet and JAVA Programming",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 502",
+        "name": "ORACLE and PL/SQL",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 503",
+        "name": "Computer Networks",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 504",
+        "name": "Software Project Management",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 505",
+        "name": "Practical 5",
+        "internal": 0,
+        "external": 100,
+        "total": 100,
+        "kind": "practical"
+      }
+    ]
+  },
+  "6": {
+    "title": "6th Semester",
+    "totalMarks": 500,
+    "subjects": [
+      {
+        "code": "BCA 601",
+        "name": "Advance Networks and Network Security",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 602",
+        "name": "Web Development Tools and Techniques",
+        "internal": 30,
+        "external": 70,
+        "total": 100,
+        "kind": "theory"
+      },
+      {
+        "code": "BCA 603",
+        "name": "Project Work",
+        "internal": 0,
+        "external": 300,
+        "total": 300,
+        "kind": "project"
+      }
+    ]
+  }
+}

@@ -1,0 +1,416 @@
+{
+  "program": {
+    "name": "BCA",
+    "university": "DDU GU GKP",
+    "evaluation": {
+      "practicalSemesters1to5": {
+        "practical": 60,
+        "record": 20,
+        "vivaVoce": 20,
+        "total": 100
+      },
+      "projectSemester6": {
+        "projectReport": 150,
+        "presentationViva": 150,
+        "total": 300
+      }
+    },
+    "divisionRules": [
+      {
+        "division": "First Division",
+        "rule": "60% and above"
+      },
+      {
+        "division": "Second Division",
+        "rule": "45% and above but below 60%"
+      },
+      {
+        "division": "Third Division",
+        "rule": "Minimum pass marks in each semester"
+      }
+    ]
+  },
+  "semesters": {
+    "1": {
+      "title": "1st Semester",
+      "totalMarks": 500,
+      "subjects": [
+        {
+          "code": "BCA 101",
+          "name": "IT Tools and Applications",
+          "internal": 30,
+          "external": 70,
+          "total": 100,
+          "kind": "theory",
+          "units": [
+            {
+              "title": "Unit 1",
+              "topics": [
+                "Characteristics of Computers",
+                "Input, output and storage units",
+                "CPU and computer system",
+                "Binary number system",
+                "Binary to decimal conversion",
+                "Decimal to binary conversion",
+                "Binary Coded Decimal (BCD) code",
+                "ASCII code",
+                "Applications of IT in different fields"
+              ]
+            },
+            {
+              "title": "Unit 2",
+              "topics": [
+                "Computer organization",
+                "Central Processing Unit",
+                "Control Unit",
+                "Arithmetic Unit",
+                "Memory and main memory",
+                "Storage evaluation criteria",
+                "Memory organization and capacity",
+                "RAM and ROM",
+                "Secondary storage devices",
+                "Input devices",
+                "Output devices"
+              ]
+            },
+            {
+              "title": "Unit 3",
+              "topics": [
+                "Hardware and software",
+                "System software and application software",
+                "Operating system",
+                "Types and functions of operating system",
+                "Simple DOS commands",
+                "Simple file operations",
+                "Directory related commands",
+                "Different versions of Windows",
+                "Basic Windows elements",
+                "File management through Windows"
+              ]
+            },
+            {
+              "title": "Unit 4",
+              "topics": [
+                "What is multimedia",
+                "Text, graphics, animation, audio, images and video",
+                "Multimedia applications in different fields",
+                "Word processing concepts",
+                "Saving, closing and opening documents",
+                "Selecting and editing text",
+                "Find and replace",
+                "Printing documents",
+                "Mail merge",
+                "Character and paragraph formatting",
+                "Page design and layout"
+              ]
+            },
+            {
+              "title": "Unit 5",
+              "topics": [
+                "Spreadsheet concepts",
+                "Creating, saving and editing a workbook",
+                "Inserting and deleting worksheets",
+                "Entering data and formulas",
+                "Copying and moving data",
+                "Operators in formulas",
+                "Mathematical, logical, statistical, text, financial, date and time functions",
+                "Using function wizard",
+                "Charts and graphs",
+                "Creating, opening and saving presentations",
+                "Working with slides and objects",
+                "Clip art and pictures",
+                "Designing, running and printing slide shows"
+              ]
+            }
+          ]
+        },
+        {
+          "code": "BCA 102",
+          "name": "Principles of Mathematics",
+          "internal": 30,
+          "external": 70,
+          "total": 100,
+          "kind": "theory",
+          "units": [
+            {
+              "title": "Unit 1",
+              "topics": [
+                "Sets and elements of a set",
+                "Methods of describing a set",
+                "Types of set",
+                "Venn diagram",
+                "Union, intersection and difference of sets",
+                "Duality",
+                "Partitioning of a set",
+                "Relation between sets",
+                "Binary relations",
+                "Operations on relations",
+                "Equivalence relations",
+                "Composition of relations"
+              ]
+            },
+            {
+              "title": "Unit 2",
+              "topics": [
+                "Functions or mapping",
+                "Types of functions",
+                "Inverse functions",
+                "Composition of functions",
+                "Trigonometric functions",
+                "Binomial theorem",
+                "Principle of mathematical induction"
+              ]
+            },
+            {
+              "title": "Unit 3",
+              "topics": [
+                "Introduction to matrix",
+                "Properties of matrix",
+                "Evaluation of determinant",
+                "Minor and cofactors",
+                "Properties of determinant",
+                "Operations on matrices"
+              ]
+            },
+            {
+              "title": "Unit 4",
+              "topics": [
+                "Introduction to progression",
+                "Arithmetic progression",
+                "Geometric progression",
+                "Harmonic progression",
+                "Arithmetic mean",
+                "Geometric mean",
+                "Harmonic mean"
+              ]
+            },
+            {
+              "title": "Unit 5",
+              "topics": [
+                "Introduction to statistics",
+                "Collection and tabulation of data",
+                "Charts and graphs",
+                "Measure of central tendency",
+                "Mean, median and mode"
+              ]
+            }
+          ]
+        },
+        {
+          "code": "BCA 103",
+          "name": "Functional English",
+          "internal": 30,
+          "external": 70,
+          "total": 100,
+          "kind": "theory",
+          "units": [
+            {
+              "title": "Unit 1",
+              "topics": [
+                "Meaning of communication",
+                "Objectives of communication",
+                "Essentials of communication",
+                "Process of communication",
+                "Barriers of communication",
+                "Types of communication"
+              ]
+            },
+            {
+              "title": "Unit 2",
+              "topics": [
+                "Introduction to phonetics",
+                "Phonetic symbols",
+                "Stress patterns",
+                "Phonetic transcriptions"
+              ]
+            },
+            {
+              "title": "Unit 3",
+              "topics": [
+                "Elements of sentence",
+                "Types of sentences by meaning and structure",
+                "Simple, compound and complex sentences",
+                "Use of articles and prepositions"
+              ]
+            },
+            {
+              "title": "Unit 4",
+              "topics": [
+                "Word formation",
+                "Synonyms",
+                "Antonyms",
+                "Homophones",
+                "One word substitution",
+                "Idioms and phrases",
+                "Expansion of ideas"
+              ]
+            },
+            {
+              "title": "Unit 5",
+              "topics": [
+                "Precis writing",
+                "Comprehension reading and listening",
+                "CV writing",
+                "Letter writing",
+                "Notice and advertisement writing",
+                "Message writing",
+                "Dialogue writing"
+              ]
+            }
+          ]
+        },
+        {
+          "code": "BCA 104",
+          "name": "Introduction to Computer Programming in C",
+          "internal": 30,
+          "external": 70,
+          "total": 100,
+          "kind": "theory",
+          "units": [
+            {
+              "title": "Unit 1",
+              "topics": [
+                "Basic model of computation",
+                "Algorithms and flow charts",
+                "Programming languages",
+                "Compilation, linking and loading",
+                "Testing, debugging and documentation",
+                "Character set",
+                "Variables and identifiers",
+                "Built-in data types",
+                "Variable definition",
+                "Arithmetic operators and expressions",
+                "Constants and literals",
+                "Simple assignment statement",
+                "Basic input output statements",
+                "Simple C programs"
+              ]
+            },
+            {
+              "title": "Unit 2",
+              "topics": [
+                "Decision making within a program",
+                "Conditions and relational operators",
+                "If statements",
+                "If else statements",
+                "Switch case statement",
+                "While loop",
+                "Do while loop",
+                "For loop",
+                "Nested loops",
+                "Infinite loops",
+                "Goto statement",
+                "Structured programming"
+              ]
+            },
+            {
+              "title": "Unit 3",
+              "topics": [
+                "One dimensional arrays",
+                "Array insertion and deletion",
+                "Largest and smallest element in an array",
+                "Two dimensional arrays",
+                "Addition and multiplication of matrices",
+                "Transpose of a square matrix",
+                "Strings as character arrays",
+                "Modular programming and functions",
+                "Standard library functions",
+                "Function prototype and return type",
+                "Function call and block structure",
+                "Call by reference and call by value",
+                "Recursive functions",
+                "Arrays as function arguments"
+              ]
+            },
+            {
+              "title": "Unit 4",
+              "topics": [
+                "Structure variables",
+                "Structure initialization and assignment",
+                "Nested structures",
+                "Structures and functions",
+                "Arrays of structures",
+                "Structures containing arrays",
+                "Unions",
+                "Address operators",
+                "Pointer declaration and assignment",
+                "Pointer initialization and arithmetic",
+                "Functions and pointers",
+                "Arrays and pointers",
+                "Pointer arrays"
+              ]
+            },
+            {
+              "title": "Unit 5",
+              "topics": [
+                "Concept of files",
+                "File opening in various modes",
+                "Closing a file",
+                "Reading from a file",
+                "Writing to a file",
+                "Dynamic accessing of file"
+              ]
+            }
+          ]
+        },
+        {
+          "code": "BCA 105",
+          "name": "Practical 1",
+          "internal": 0,
+          "external": 100,
+          "total": 100,
+          "kind": "practical",
+          "breakup": {
+            "practical": 60,
+            "record": 20,
+            "vivaVoce": 20
+          },
+          "tasks": [
+            "Familiarizing with PC and WINDOWS commands, file creation, editing and directory creation",
+            "DOS commands",
+            "Learning to use MS Office: MS WORD, MS EXCEL and MS PowerPoint",
+            "C programs using input and output statements",
+            "C programs using control statements",
+            "C programs using functions",
+            "C programs using arrays",
+            "C programs using structure",
+            "C programs using files",
+            "Generate Fibonacci series",
+            "Generate prime numbers",
+            "Sort an array using different methods",
+            "Search an element from array"
+          ],
+          "note": "Programs should be fully documented with simple input output data. Flow charts should be developed wherever necessary."
+        }
+      ]
+    },
+    "2": {
+      "title": "2nd Semester",
+      "totalMarks": 500
+    },
+    "3": {
+      "title": "3rd Semester",
+      "totalMarks": 500
+    },
+    "4": {
+      "title": "4th Semester",
+      "totalMarks": 500
+    },
+    "5": {
+      "title": "5th Semester",
+      "totalMarks": 500
+    },
+    "6": {
+      "title": "6th Semester",
+      "totalMarks": 500,
+      "project": {
+        "code": "BCA 603",
+        "name": "Project Work",
+        "breakup": {
+          "projectReport": 150,
+          "presentationViva": 150
+        }
+      }
+    }
+  }
+}

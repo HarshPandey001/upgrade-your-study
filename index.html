@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upgrade Your Study 🚀</title>
+
+  <!-- Responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Basic -->
+  <meta name="description" content="AI-powered study assistant for smarter learning">
+  <meta name="author" content="Harsh Pandey">
+  <meta name="theme-color" content="#0f172a">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <div class="brand-mark" aria-label="Upgrade Your Study">
+    <div class="brand-icon-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-icon">
+        <path d="M12 18V5"></path>
+        <path d="M15 13a4.4 4.4 0 0 0 0-6"></path>
+        <path d="M9 13a4.4 4.4 0 0 1 0-6"></path>
+        <path d="M17.8 6.2a9 9 0 0 1 0 11.6"></path>
+        <path d="M6.2 6.2a9 9 0 0 0 0 11.6"></path>
+        <path d="M10 20h4"></path>
+      </svg>
+    </div>
+    <div class="brand-copy">
+      <span class="brand-title">Upgrade Your Study</span>
+      <span class="brand-subtitle">AI Study Workspace</span>
+    </div>
+  </div>
+
+  <!-- 🔹 MAIN APP ROOT (SPA Container) -->
+  <div id="app"></div>
+
+  <!-- 🔹 NOSCRIPT FALLBACK -->
+  <noscript>
+    <div style="text-align:center; margin-top:50px; font-family:sans-serif;">
+      <h2>JavaScript Required ⚠️</h2>
+      <p>Please enable JavaScript to use this app.</p>
+    </div>
+  </noscript>
+
+  <!-- ================= JS FILES ================= -->
+
+  <script>
+    window.UYS_BACKEND_URL = window.UYS_BACKEND_URL || localStorage.getItem("uys_backend_url") || (
+      window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname)
+        ? "http://localhost:5000"
+        : window.location.origin
+    );
+  </script>
+
+  <!-- Core Utilities -->
+  <script src="js/utils.js"></script>
+
+  <!-- Storage System -->
+  <script src="js/storage.js"></script>
+
+  <!-- Features (modular) -->
+  <script src="js/auth.js"></script>
+  <script src="js/setup.js"></script>
+  <script src="js/course.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/test.js"></script>
+
+  <!-- App Controller (LAST) -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
