@@ -14,7 +14,8 @@ function buildAuthPayload(user) {
   return {
     id: String(user._id),
     name: String(user.name || "Student").trim() || "Student",
-    email: normalizeEmail(user.email)
+    email: normalizeEmail(user.email),
+    avatarUrl: String(user.avatarUrl || "").trim()
   };
 }
 

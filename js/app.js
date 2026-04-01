@@ -557,6 +557,31 @@ function getUserInitials(name) {
     .join("") || "S";
 }
 
+function createDefaultAvatarDataUrl(name, theme = "indigo") {
+  const initials = getUserInitials(name);
+  const themes = {
+    indigo: ["#6366f1", "#8b5cf6"],
+    emerald: ["#10b981", "#22c55e"],
+    amber: ["#f59e0b", "#f97316"],
+    rose: ["#f43f5e", "#ec4899"]
+  };
+  const [startColor, endColor] = themes[theme] || themes.indigo;
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+      <defs>
+        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${startColor}" />
+          <stop offset="100%" stop-color="${endColor}" />
+        </linearGradient>
+      </defs>
+      <rect width="256" height="256" rx="128" fill="url(#g)"/>
+      <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="92" font-weight="700" fill="#ffffff">${initials}</text>
+    </svg>
+  `.trim();
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
 function renderAvatarMarkup(user, size = 52) {
   const avatarUrl = String(user?.avatarUrl || "").trim();
   const initials = escapeHtml(getUserInitials(user?.name || "Student"));
@@ -567,6 +592,16 @@ function renderAvatarMarkup(user, size = 52) {
   }
 
   return `<div style="${inlineSize} display:inline-flex; align-items:center; justify-content:center; border-radius:50%; background:linear-gradient(135deg, rgba(99,102,241,0.78), rgba(34,197,94,0.72)); color:#fff; font-weight:800; letter-spacing:0.04em; box-shadow:0 10px 24px rgba(2,8,23,0.28);">${initials}</div>`;
+}
+
+function updateProfileAvatarPreview() {
+  const preview = $("profile-avatar-preview");
+  if (!preview) return;
+
+  preview.innerHTML = renderAvatarMarkup({
+    name: $("profile-name")?.value.trim() || getUser()?.name || "Student",
+    avatarUrl: profileAvatarDraft
+  }, 72);
 }
 
 async function handleAuth() {
@@ -689,9 +724,21 @@ async function openProfileManagement() {
             <div>
               <p class="small">Avatar</p>
               <input id="profile-avatar-file" type="file" accept="image/*" onchange="handleProfileAvatarUpload(event)">
+              <div class="action-row" style="margin-top:10px;">
+                <button type="button" class="btn-secondary inline-btn" onclick="removeProfileAvatar()">Remove Photo</button>
+              </div>
             </div>
           </div>
-          <input id="profile-name" type="text" placeholder="Full name" value="${escapeHtml(currentName)}">
+          <div class="option-list" style="margin-top:14px;">
+            <p class="small">Quick avatar styles</p>
+            <div class="action-row">
+              <button type="button" class="btn-secondary inline-btn" onclick="selectDefaultAvatar('indigo')">Indigo</button>
+              <button type="button" class="btn-secondary inline-btn" onclick="selectDefaultAvatar('emerald')">Emerald</button>
+              <button type="button" class="btn-secondary inline-btn" onclick="selectDefaultAvatar('amber')">Amber</button>
+              <button type="button" class="btn-secondary inline-btn" onclick="selectDefaultAvatar('rose')">Rose</button>
+            </div>
+          </div>
+          <input id="profile-name" type="text" placeholder="Full name" value="${escapeHtml(currentName)}" oninput="updateProfileAvatarPreview()">
           <input id="profile-email" type="email" placeholder="Email" value="${escapeHtml(currentEmail)}">
 
           <div class="action-row">
@@ -720,18 +767,26 @@ async function handleProfileAvatarUpload(event) {
   if (!file) return;
 
   try {
-    profileAvatarDraft = await readFileAsDataUrl(file);
-    const preview = $("profile-avatar-preview");
-    if (preview) {
-      preview.innerHTML = renderAvatarMarkup({
-        name: $("profile-name")?.value.trim() || getUser()?.name || "Student",
-        avatarUrl: profileAvatarDraft
-      }, 72);
-    }
+    profileAvatarDraft = await resizeImageFileAsDataUrl(file, 256, 0.9);
+    updateProfileAvatarPreview();
   } catch (error) {
     profileAvatarDraft = getUser()?.avatarUrl || "";
     showToast(error.message || "Unable to read avatar image.", "error");
   }
+}
+
+function removeProfileAvatar() {
+  profileAvatarDraft = "";
+  const fileInput = $("profile-avatar-file");
+  if (fileInput) {
+    fileInput.value = "";
+  }
+  updateProfileAvatarPreview();
+}
+
+function selectDefaultAvatar(theme) {
+  profileAvatarDraft = createDefaultAvatarDataUrl($("profile-name")?.value.trim() || getUser()?.name || "Student", theme);
+  updateProfileAvatarPreview();
 }
 
 async function saveProfileChanges() {

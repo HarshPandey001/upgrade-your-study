@@ -44,6 +44,11 @@ const userProfileSchema = new mongoose.Schema(
       default: "",
       trim: true
     },
+    avatarUrl: {
+      type: String,
+      default: "",
+      trim: true
+    },
     aiConfig: {
       type: aiConfigSchema,
       default: () => ({})

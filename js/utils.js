@@ -181,6 +181,40 @@ function readFileAsDataUrl(file) {
   });
 }
 
+function resizeImageFileAsDataUrl(file, maxSize = 256, quality = 0.88) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const image = new Image();
+      image.onload = () => {
+        const longestSide = Math.max(image.width, image.height) || 1;
+        const scale = Math.min(1, maxSize / longestSide);
+        const width = Math.max(1, Math.round(image.width * scale));
+        const height = Math.max(1, Math.round(image.height * scale));
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const context = canvas.getContext("2d");
+        if (!context) {
+          reject(new Error("Unable to process avatar image."));
+          return;
+        }
+
+        context.drawImage(image, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+
+      image.onerror = () => reject(new Error(`Unable to process file: ${file?.name || "unknown"}`));
+      image.src = String(reader.result || "");
+    };
+
+    reader.onerror = () => reject(new Error(`Unable to read file: ${file?.name || "unknown"}`));
+    reader.readAsDataURL(file);
+  });
+}
+
 function downloadTextFile(filename, content) {
   const blob = new Blob([String(content || "")], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);

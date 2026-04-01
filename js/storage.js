@@ -32,6 +32,7 @@ function normalizeUserRecord(user) {
   return {
     name,
     email,
+    avatarUrl: String(user.avatarUrl || "").trim(),
     password: String(user.password || ""),
     loggedIn: Boolean(user.loggedIn),
     createdAt: user.createdAt || new Date().toISOString(),
