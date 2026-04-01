@@ -7,6 +7,7 @@ let customUploadedMaterials = [];
 let assistantImageAttachment = "";
 let processingIntervalId = null;
 let backendHistoryCache = [];
+let profileAvatarDraft = "";
 
 const BCA_SUBJECTS_FALLBACK = {
   "1": {
@@ -517,6 +518,57 @@ function validateSignupInputs({ name, email, password }) {
   return "";
 }
 
+function validateProfileInputs({ name, email }) {
+  const normalizedName = String(name || "").trim();
+  const normalizedEmail = String(email || "").trim().toLowerCase();
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const namePattern = /^[A-Za-z][A-Za-z\s]{1,48}[A-Za-z]$/;
+
+  if (!normalizedName) {
+    return "Full name is required.";
+  }
+
+  if (normalizedName.length < 3) {
+    return "Full name must be at least 3 characters long.";
+  }
+
+  if (!namePattern.test(normalizedName)) {
+    return "Full name should contain only letters and spaces.";
+  }
+
+  if (!emailPattern.test(normalizedEmail)) {
+    return "Please enter a valid email address.";
+  }
+
+  if (!/[a-z]/i.test(normalizedEmail)) {
+    return "Email must include at least one letter.";
+  }
+
+  return "";
+}
+
+function getUserInitials(name) {
+  return String(name || "Student")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join("") || "S";
+}
+
+function renderAvatarMarkup(user, size = 52) {
+  const avatarUrl = String(user?.avatarUrl || "").trim();
+  const initials = escapeHtml(getUserInitials(user?.name || "Student"));
+  const inlineSize = `width:${size}px;height:${size}px;`;
+
+  if (avatarUrl) {
+    return `<img src="${escapeHtml(avatarUrl)}" alt="Profile avatar" style="${inlineSize} border-radius:50%; object-fit:cover; border:1px solid rgba(148, 163, 184, 0.18); box-shadow:0 10px 24px rgba(2,8,23,0.28);">`;
+  }
+
+  return `<div style="${inlineSize} display:inline-flex; align-items:center; justify-content:center; border-radius:50%; background:linear-gradient(135deg, rgba(99,102,241,0.78), rgba(34,197,94,0.72)); color:#fff; font-weight:800; letter-spacing:0.04em; box-shadow:0 10px 24px rgba(2,8,23,0.28);">${initials}</div>`;
+}
+
 async function handleAuth() {
   const name = authMode === "signup" ? $("auth-name")?.value.trim() : "";
   const email = $("auth-email")?.value.trim().toLowerCase();
@@ -599,6 +651,158 @@ function loadSetupUI() {
 
 function openSettings() {
   loadSetupUI();
+}
+
+async function openProfileManagement() {
+  const user = getUser();
+  const profile = await fetchProfileFromBackend();
+  const currentName = profile?.name || user?.name || "";
+  const currentEmail = profile?.email || user?.email || "";
+  profileAvatarDraft = profile?.avatarUrl || user?.avatarUrl || "";
+
+  $("app").innerHTML = `
+    <div class="container app-shell">
+      <section class="hero-card compact">
+        <div class="top-bar">
+          <div>
+            <div class="icon-heading">
+              ${iconBadge("settings")}
+              <div>
+                <p class="eyebrow">Profile Management</p>
+                <h1>Manage your account details</h1>
+              </div>
+            </div>
+          </div>
+          <div class="action-row">
+            <button class="btn-secondary inline-btn" onclick="loadDashboardUI()">Dashboard</button>
+          </div>
+        </div>
+        <p class="subtitle">Update your name, email, and password without losing your account data.</p>
+      </section>
+
+      <section class="split-grid wide">
+        <article class="panel-card">
+          <h2>Profile Details</h2>
+          <p class="subtitle">Keep your account information up to date.</p>
+          <div class="icon-heading" style="margin-top:16px;">
+            <div id="profile-avatar-preview">${renderAvatarMarkup({ name: currentName || "Student", avatarUrl: profileAvatarDraft }, 72)}</div>
+            <div>
+              <p class="small">Avatar</p>
+              <input id="profile-avatar-file" type="file" accept="image/*" onchange="handleProfileAvatarUpload(event)">
+            </div>
+          </div>
+          <input id="profile-name" type="text" placeholder="Full name" value="${escapeHtml(currentName)}">
+          <input id="profile-email" type="email" placeholder="Email" value="${escapeHtml(currentEmail)}">
+
+          <div class="action-row">
+            <button id="profile-save-btn" class="inline-btn" onclick="saveProfileChanges()">Save Profile</button>
+          </div>
+        </article>
+
+        <article class="panel-card">
+          <h2>Change Password</h2>
+          <p class="subtitle">Use your current password to set a new one.</p>
+          <input id="current-password" type="password" placeholder="Current password">
+          <input id="new-password" type="password" placeholder="New password">
+          <input id="confirm-new-password" type="password" placeholder="Confirm new password">
+
+          <div class="action-row">
+            <button id="password-save-btn" class="inline-btn" onclick="savePasswordChanges()">Update Password</button>
+          </div>
+        </article>
+      </section>
+    </div>
+  `;
+}
+
+async function handleProfileAvatarUpload(event) {
+  const file = event.target?.files?.[0];
+  if (!file) return;
+
+  try {
+    profileAvatarDraft = await readFileAsDataUrl(file);
+    const preview = $("profile-avatar-preview");
+    if (preview) {
+      preview.innerHTML = renderAvatarMarkup({
+        name: $("profile-name")?.value.trim() || getUser()?.name || "Student",
+        avatarUrl: profileAvatarDraft
+      }, 72);
+    }
+  } catch (error) {
+    profileAvatarDraft = getUser()?.avatarUrl || "";
+    showToast(error.message || "Unable to read avatar image.", "error");
+  }
+}
+
+async function saveProfileChanges() {
+  const name = $("profile-name")?.value.trim() || "";
+  const email = $("profile-email")?.value.trim().toLowerCase() || "";
+  const validationError = validateProfileInputs({ name, email });
+
+  if (validationError) {
+    showToast(validationError, "error");
+    return;
+  }
+
+  try {
+    setButtonLoading("profile-save-btn", true, "Saving...");
+    const payload = await updateProfileInBackend({ name, email, avatarUrl: profileAvatarDraft });
+    saveAuthToken(payload.token || getAuthToken());
+    saveUser({
+      ...(getStoredUserRecord() || {}),
+      ...(payload.data || {}),
+      loggedIn: true,
+      lastLoginAt: new Date().toISOString()
+    });
+    showToast("Profile updated successfully.", "success");
+    await openProfileManagement();
+  } catch (error) {
+    showToast(error.message || "Unable to update profile.", "error");
+    setButtonLoading("profile-save-btn", false);
+  }
+}
+
+async function savePasswordChanges() {
+  const currentPassword = $("current-password")?.value.trim() || "";
+  const newPassword = $("new-password")?.value.trim() || "";
+  const confirmPassword = $("confirm-new-password")?.value.trim() || "";
+
+  if (!currentPassword || !newPassword || !confirmPassword) {
+    showToast("Please fill all password fields.", "error");
+    return;
+  }
+
+  if (newPassword.length < 6) {
+    showToast("New password must be at least 6 characters long.", "error");
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    showToast("New password and confirm password must match.", "error");
+    return;
+  }
+
+  try {
+    setButtonLoading("password-save-btn", true, "Updating...");
+    await changePasswordInBackend({
+      currentPassword,
+      newPassword
+    });
+    saveUser({
+      ...(getStoredUserRecord() || {}),
+      password: newPassword,
+      loggedIn: true,
+      lastLoginAt: new Date().toISOString()
+    });
+    showToast("Password updated successfully.", "success");
+    $("current-password").value = "";
+    $("new-password").value = "";
+    $("confirm-new-password").value = "";
+    setButtonLoading("password-save-btn", false);
+  } catch (error) {
+    showToast(error.message || "Unable to update password.", "error");
+    setButtonLoading("password-save-btn", false);
+  }
 }
 
 function updateModels() {
@@ -1655,11 +1859,17 @@ async function loadDashboardUI() {
         <div class="top-bar">
           <div>
             <p class="eyebrow">Dashboard</p>
-            <h1>Welcome, ${escapeHtml(user?.name || "Student")}</h1>
-            <p class="subtitle">Login, setup, course selection, processing, dashboard, question detail, study plan, history, and skill test all stay inside this single-page app.</p>
+            <div class="icon-heading" style="margin-top:8px;">
+              ${renderAvatarMarkup(user, 58)}
+              <div>
+                <h1>Welcome, ${escapeHtml(user?.name || "Student")}</h1>
+                <p class="subtitle">Login, setup, course selection, processing, dashboard, question detail, study plan, history, and skill test all stay inside this single-page app.</p>
+              </div>
+            </div>
           </div>
           <div class="action-row">
             <button class="inline-btn" onclick="goToCourse()">Course Flow</button>
+            <button class="btn-secondary inline-btn" onclick="openProfileManagement()">Profile</button>
             <button class="btn-secondary inline-btn" onclick="openSettings()">AI Settings</button>
             <button class="btn-secondary inline-btn" onclick="logout()">Logout</button>
           </div>

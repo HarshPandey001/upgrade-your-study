@@ -541,6 +541,75 @@ async function fetchCurrentBackendUser() {
   }
 }
 
+async function fetchProfileFromBackend() {
+  const backendUrl = getBackendBaseUrl();
+  if (!getAuthToken()) return null;
+
+  try {
+    const response = await fetch(`${backendUrl}/api/user/profile`, {
+      headers: buildAuthHeaders()
+    });
+
+    if (await handleUnauthorizedResponse(response)) {
+      return null;
+    }
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data?.success || !data?.data) {
+      throw new Error(data?.message || "Unable to fetch profile");
+    }
+
+    return data.data;
+  } catch (error) {
+    console.warn("Profile fetch skipped:", error.message);
+    return null;
+  }
+}
+
+async function updateProfileInBackend(payload) {
+  const backendUrl = getBackendBaseUrl();
+  const response = await fetch(`${backendUrl}/api/user/profile`, {
+    method: "PUT",
+    headers: buildAuthHeaders({
+      "Content-Type": "application/json"
+    }),
+    body: JSON.stringify(payload)
+  });
+
+  if (await handleUnauthorizedResponse(response)) {
+    throw new Error("Session expired. Please login again.");
+  }
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data?.success || !data?.data) {
+    throw new Error(data?.message || "Unable to update profile");
+  }
+
+  return data;
+}
+
+async function changePasswordInBackend(payload) {
+  const backendUrl = getBackendBaseUrl();
+  const response = await fetch(`${backendUrl}/api/user/password`, {
+    method: "PUT",
+    headers: buildAuthHeaders({
+      "Content-Type": "application/json"
+    }),
+    body: JSON.stringify(payload)
+  });
+
+  if (await handleUnauthorizedResponse(response)) {
+    throw new Error("Session expired. Please login again.");
+  }
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || !data?.success) {
+    throw new Error(data?.message || "Unable to change password");
+  }
+
+  return data;
+}
+
 function normalizeBackendHistoryItem(item) {
   if (!item || typeof item !== "object") return null;
 
