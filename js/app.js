@@ -464,7 +464,7 @@ function loadAuthUI(mode = "login") {
 
       <section class="panel-card">
         <h2>${authMode === "signup" ? "Create account" : "Login"}</h2>
-        <p class="subtitle">Everything stays in your browser storage.</p>
+        <p class="subtitle">${authMode === "signup" ? "Use a real name with letters/spaces only, a valid email, and a password of 6+ characters." : "Login with your registered email and password."}</p>
         ${authMode === "signup" ? '<input id="auth-name" type="text" placeholder="Full name">' : ""}
         <input id="auth-email" type="email" placeholder="Email">
         <input id="auth-password" type="password" placeholder="Password">
@@ -482,6 +482,41 @@ function toggleAuthMode() {
   loadAuthUI(authMode === "signup" ? "login" : "signup");
 }
 
+function validateSignupInputs({ name, email, password }) {
+  const normalizedName = String(name || "").trim();
+  const normalizedEmail = String(email || "").trim().toLowerCase();
+  const normalizedPassword = String(password || "").trim();
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const namePattern = /^[A-Za-z][A-Za-z\s]{1,48}[A-Za-z]$/;
+  const hasAlphabet = /[a-z]/i.test(normalizedEmail);
+
+  if (!normalizedName) {
+    return "Full name is required.";
+  }
+
+  if (normalizedName.length < 3) {
+    return "Full name must be at least 3 characters long.";
+  }
+
+  if (!namePattern.test(normalizedName)) {
+    return "Full name should contain only letters and spaces.";
+  }
+
+  if (!emailPattern.test(normalizedEmail)) {
+    return "Please enter a valid email address.";
+  }
+
+  if (!hasAlphabet) {
+    return "Email must include at least one letter.";
+  }
+
+  if (normalizedPassword.length < 6) {
+    return "Password must be at least 6 characters long.";
+  }
+
+  return "";
+}
+
 async function handleAuth() {
   const name = authMode === "signup" ? $("auth-name")?.value.trim() : "";
   const email = $("auth-email")?.value.trim().toLowerCase();
@@ -490,6 +525,14 @@ async function handleAuth() {
   if (!email || !password || (authMode === "signup" && !name)) {
     showToast("Please fill all required fields.", "error");
     return;
+  }
+
+  if (authMode === "signup") {
+    const validationError = validateSignupInputs({ name, email, password });
+    if (validationError) {
+      showToast(validationError, "error");
+      return;
+    }
   }
 
   try {
