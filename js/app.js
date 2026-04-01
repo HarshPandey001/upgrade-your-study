@@ -65,30 +65,32 @@ function ensureRuntimeStyles() {
     body {
       min-height: 100vh;
       background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 30%),
-        linear-gradient(160deg, #08111f 0%, #111c30 52%, #0f172a 100%);
+        radial-gradient(circle at top, rgba(239, 35, 60, 0.16), transparent 28%),
+        radial-gradient(circle at 85% 15%, rgba(127, 29, 29, 0.15), transparent 24%),
+        linear-gradient(160deg, #150507 0%, #070707 54%, #000000 100%);
     }
 
     .app-shell {
       width: 100%;
-      max-width: 1180px;
+      max-width: 1220px;
       align-items: stretch;
       justify-content: flex-start;
       text-align: left;
-      padding: 32px 20px 48px;
+      padding: 42px 20px 56px;
     }
 
     .hero-card,
     .panel-card {
       width: 100%;
-      background: rgba(15, 23, 42, 0.86);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      border-radius: 22px;
-      box-shadow: 0 18px 45px rgba(2, 8, 23, 0.35);
+      background: linear-gradient(180deg, rgba(15, 7, 8, 0.9), rgba(4, 4, 4, 0.92));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.46);
+      backdrop-filter: blur(18px);
     }
 
     .hero-card {
-      padding: 28px;
+      padding: 32px;
     }
 
     .hero-card.compact {
@@ -96,7 +98,7 @@ function ensureRuntimeStyles() {
     }
 
     .panel-card {
-      padding: 24px;
+      padding: 26px;
     }
 
     .top-bar,
@@ -131,14 +133,14 @@ function ensureRuntimeStyles() {
     .timeline-card,
     .chat-bubble,
     .upload-card {
-      background: rgba(30, 41, 59, 0.75);
-      border: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(19, 9, 11, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 18px;
       padding: 16px;
     }
 
     .eyebrow {
-      color: #38bdf8;
+      color: #ff6b7e;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       font-size: 12px;
@@ -159,9 +161,9 @@ function ensureRuntimeStyles() {
     .pill {
       display: inline-flex;
       align-items: center;
-      background: rgba(56, 189, 248, 0.14);
-      color: #d8f3ff;
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      background: rgba(239, 35, 60, 0.12);
+      color: #ffd9de;
+      border: 1px solid rgba(239, 35, 60, 0.22);
       padding: 10px 12px;
       border-radius: 999px;
       margin: 0 8px 8px 0;
@@ -183,22 +185,22 @@ function ensureRuntimeStyles() {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(51, 65, 85, 0.88);
-      color: #e2e8f0;
+      background: rgba(28, 12, 15, 0.92);
+      color: #f3edef;
     }
 
     .question-button:hover,
     .option-card:hover,
     .subject-choice:hover {
       opacity: 1;
-      background: rgba(71, 85, 105, 0.96);
+      background: rgba(44, 16, 20, 0.96);
     }
 
     .selected-card,
     .option-card.selected,
     .subject-choice.active {
-      background: #38bdf8;
-      color: #082f49;
+      background: linear-gradient(135deg, #ef233c, #7f1d1d);
+      color: #fff7f8;
     }
 
     .option-letter,
@@ -219,9 +221,9 @@ function ensureRuntimeStyles() {
       align-items: center;
       border-radius: 999px;
       padding: 6px 10px;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #dfd1d4;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -249,27 +251,27 @@ function ensureRuntimeStyles() {
       min-height: 120px;
       padding: 12px;
       margin-top: 10px;
-      border: none;
-      border-radius: 10px;
-      background: #334155;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
       color: white;
       outline: none;
       resize: vertical;
     }
 
     .chat-bubble.user {
-      border-color: rgba(56, 189, 248, 0.3);
+      border-color: rgba(239, 35, 60, 0.28);
     }
 
     .chat-bubble.assistant {
-      border-color: rgba(148, 163, 184, 0.2);
+      border-color: rgba(255, 255, 255, 0.08);
     }
 
     .preview-image {
       width: 100%;
       max-width: 320px;
       border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       margin-top: 12px;
     }
 
@@ -285,12 +287,12 @@ function ensureRuntimeStyles() {
     .toast {
       min-width: 220px;
       max-width: 340px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      color: #e2e8f0;
+      background: rgba(7, 7, 7, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #f2eaea;
       padding: 14px 16px;
       border-radius: 14px;
-      box-shadow: 0 12px 28px rgba(2, 8, 23, 0.4);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.48);
       opacity: 0;
       transform: translateY(-6px);
       transition: 0.18s ease;
@@ -302,11 +304,11 @@ function ensureRuntimeStyles() {
     }
 
     .toast-success {
-      border-color: rgba(34, 197, 94, 0.4);
+      border-color: rgba(239, 35, 60, 0.38);
     }
 
     .toast-error {
-      border-color: rgba(248, 113, 113, 0.45);
+      border-color: rgba(251, 113, 133, 0.45);
     }
 
     .is-loading {
@@ -1783,6 +1785,18 @@ function continueRecent(itemId) {
   loadDashboardUI();
 }
 
+async function loadMoreQuestions() {
+  try {
+    setButtonLoading("more-questions-btn", true, "Loading...");
+    await generateAdditionalQuestions();
+    showToast("More questions generated.", "success");
+    await loadDashboardUI();
+  } catch (error) {
+    showToast(error.message || "Unable to generate more questions.", "error");
+    setButtonLoading("more-questions-btn", false);
+  }
+}
+
 async function loadHistoryView() {
   const localRecents = searchRecents(historySearchQuery).map((item) => ({
     ...item,
@@ -2015,7 +2029,10 @@ async function loadDashboardUI() {
                     </div>
                     <p class="subtitle">Click any question to open detail view with answer length and language controls.</p>
                   </div>
-                  <button class="btn-secondary inline-btn" onclick="loadStudyPlanView()">View Study Plan</button>
+                  <div class="action-row">
+                    <button id="more-questions-btn" class="inline-btn" onclick="loadMoreQuestions()">Load More Questions</button>
+                    <button class="btn-secondary inline-btn" onclick="loadStudyPlanView()">View Study Plan</button>
+                  </div>
                 </div>
                 <div class="option-list" style="margin-top:16px;">
                   ${result.questions.map((question, index) => `

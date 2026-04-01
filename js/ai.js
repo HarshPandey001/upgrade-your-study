@@ -221,6 +221,27 @@ Generate 5 new MCQs with varied difficulty and without repeating previous questi
   `.trim();
 }
 
+async function buildMoreQuestionsPrompt(course, currentResult) {
+  const topics = (currentResult?.topics || []).join(", ");
+  const existingQuestions = (currentResult?.questions || []).join("\n");
+
+  return `
+You are generating fresh predicted study questions for a study app.
+${await buildCourseContext(course)}
+Focus topics: ${topics || "general revision"}.
+
+Existing questions to avoid repeating:
+${existingQuestions || "No previous questions provided."}
+
+Return valid JSON only using this schema:
+{
+  "questions": ["question 1", "question 2", "question 3", "question 4", "question 5", "question 6"]
+}
+
+Generate 6 new meaningful exam-style questions without repeating previous ones.
+  `.trim();
+}
+
 function buildAnswerCacheKey(question, options = {}) {
   const length = String(options.length || "medium").toLowerCase();
   const language = String(options.language || "English");
@@ -430,6 +451,63 @@ async function generateAdditionalMcqs() {
     title: `Generated ${newMcqs.length} MCQs`,
     details: {
       count: newMcqs.length,
+      courseLabel: course.label || ""
+    }
+  });
+
+  return merged;
+}
+
+async function generateAdditionalQuestions() {
+  const course = getCourse();
+  const currentResult = getAIResult();
+
+  if (!course || !currentResult) {
+    throw new Error("Study content is missing. Generate your AI study pack first.");
+  }
+
+  const payload = await requestAIJson(await buildMoreQuestionsPrompt(course, currentResult));
+  const newQuestions = Array.isArray(payload.questions)
+    ? payload.questions.map((item) => String(item || "").trim()).filter(Boolean)
+    : [];
+
+  if (!newQuestions.length) {
+    throw new Error("The AI did not return any new questions.");
+  }
+
+  const uniqueQuestions = newQuestions.filter((question) => !currentResult.questions.includes(question));
+  if (!uniqueQuestions.length) {
+    throw new Error("No new unique questions were generated. Please try again.");
+  }
+
+  const merged = saveAIResult({
+    ...currentResult,
+    questions: [...currentResult.questions, ...uniqueQuestions]
+  });
+
+  saveRecent({
+    id: uid("recent-questions"),
+    type: "question-generation",
+    title: `Generated ${uniqueQuestions.length} more questions`,
+    time: nowLabel()
+  });
+
+  void saveToBackend({
+    userEmail: getCurrentUserEmail(),
+    query: `Generate more questions for ${course.label || "study pack"}`,
+    response: stringifyBackendPayload(uniqueQuestions),
+    type: "question-list",
+    meta: {
+      count: uniqueQuestions.length,
+      courseLabel: course.label || ""
+    }
+  });
+
+  void logActivityToBackend({
+    action: "question_generated",
+    title: `Generated ${uniqueQuestions.length} questions`,
+    details: {
+      count: uniqueQuestions.length,
       courseLabel: course.label || ""
     }
   });
