@@ -177,7 +177,6 @@ node backend/server.js
 ## 🔥 Future Enhancements
 
 * User authentication system
-* Cloud deployment for backend
 * Personalized AI recommendations
 * Mobile app version
 
