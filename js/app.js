@@ -473,8 +473,8 @@ function loadAuthUI(mode = "login") {
         <input id="auth-password" type="password" placeholder="Password">
 
         <div class="action-row">
-          <button class="inline-btn" onclick="handleAuth()">${authMode === "signup" ? "Create Account" : "Login"}</button>
-          <button class="btn-secondary inline-btn" onclick="toggleAuthMode()">${authMode === "signup" ? "Switch to Login" : "Switch to Signup"}</button>
+          <button id="auth-submit-btn" class="inline-btn" onclick="handleAuth()">${authMode === "signup" ? "Create Account" : "Login"}</button>
+          <button id="auth-toggle-btn" class="btn-secondary inline-btn" onclick="toggleAuthMode()">${authMode === "signup" ? "Switch to Login" : "Switch to Signup"}</button>
         </div>
       </section>
     </div>
@@ -625,6 +625,10 @@ async function handleAuth() {
   }
 
   try {
+    setButtonLoading("auth-submit-btn", true, authMode === "signup" ? "Creating..." : "Logging in...");
+    const toggleButton = $("auth-toggle-btn");
+    if (toggleButton) toggleButton.disabled = true;
+
     const payload = authMode === "signup"
       ? await signupWithBackend({ name, email, password })
       : await loginWithBackend({ email, password });
@@ -642,6 +646,9 @@ async function handleAuth() {
     await initApp();
   } catch (error) {
     showToast(error.message || "Authentication failed.", "error");
+    setButtonLoading("auth-submit-btn", false);
+    const toggleButton = $("auth-toggle-btn");
+    if (toggleButton) toggleButton.disabled = false;
   }
 }
 
